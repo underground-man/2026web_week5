@@ -1,6 +1,5 @@
 package org.example.week5_webservice.service;
 
-import org.example.*;
 import org.example.week5_webservice.dto.MovieRequest;
 import org.example.week5_webservice.dto.MovieResponse;
 import org.example.week5_webservice.repository.MovieRepository;

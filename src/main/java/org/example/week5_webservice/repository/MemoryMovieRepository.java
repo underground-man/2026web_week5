@@ -1,10 +1,11 @@
 package org.example.week5_webservice.repository;
 
 import org.example.week5_webservice.domain.Movie;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-
+@Repository
 public class MemoryMovieRepository implements MovieRepository {
     private final Map<Long, Movie> store = new LinkedHashMap<>();
     private long spekey =0L;
