@@ -9,6 +9,6 @@ public interface MovieRepository {
     List<Movie> findAll();
     Optional<Movie> findById(Long Id);
     Movie update(Movie b);
-    Void delete(long id);
+    void delete(long id);
 
 }

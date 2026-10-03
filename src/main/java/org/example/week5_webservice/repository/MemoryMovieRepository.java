@@ -1,13 +1,8 @@
 package org.example.week5_webservice.repository;
 
 import org.example.week5_webservice.domain.Movie;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-
-
+import java.util.*;
 
 
 public class MemoryMovieRepository implements MovieRepository {
@@ -19,27 +14,31 @@ public class MemoryMovieRepository implements MovieRepository {
     @Override
     public Movie save(Movie b) {
         b.setId(++spekey);
-
-        return null;
+        store.put(b.getId(),b);
+        return b;
     }
 
     @Override
     public List<Movie> findAll() {
-        return null;
+
+        return new ArrayList<>(store.values());
     }
 
     @Override
     public Optional<Movie> findById(Long Id) {
-        return null;
+
+        return Optional.ofNullable(store.get(Id));
     }
 
     @Override
     public Movie update(Movie b) {
-        return null;
+        store.put(b.getId(), b);
+        return b;
     }
 
     @Override
-    public Void delete(long id) {
-        return null;
+    public void delete(long id) {
+        store.remove(id);
+
     }
 }
