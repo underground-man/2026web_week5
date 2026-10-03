@@ -5,7 +5,9 @@ import org.example.week5_webservice.dto.MovieRequest;
 import org.example.week5_webservice.dto.MovieResponse;
 import org.example.week5_webservice.repository.MovieRepository;
 import org.example.week5_webservice.domain.Movie;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,34 @@ public class MovieService {
             mlist.add(toResponse(b));
         }
         return mlist;
+    }
+
+    public MovieResponse findbyId(long id){
+        return toResponse(findBook(id));
+    }
+
+
+    public MovieResponse update(long id,MovieRequest m){
+        Movie dummy = findBook(id);
+        dummy.setTitle(m.title());
+        dummy.setdirector(m.director());
+        dummy.setCategory(m.category());
+        dummy.setPubyear(m.pubyear());
+        dummy.setrating(m.rating());
+        return toResponse(repository.update(dummy));
+
+    }
+
+    public void delete(long id){
+        findBook(id);
+        repository.delete(id);
+    }
+
+
+
+
+    private Movie findBook(Long id){
+        return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find Movie"+id));
     }
 
     private MovieResponse toResponse(Movie request){
