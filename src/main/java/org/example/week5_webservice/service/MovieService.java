@@ -22,7 +22,7 @@ public class MovieService {
         this.repository = repository;
     }
     public MovieResponse create(MovieRequest request){
-
+        che(request);
         return toResponse( repository.save(new Movie(null,request.title(),request.director(), request.rating(), request.pubyear(), request.category())));
     }
 
@@ -41,12 +41,16 @@ public class MovieService {
 
 
     public MovieResponse update(long id,MovieRequest m){
-        Movie dummy = findBook(id);
+
+        che(m);        Movie dummy = findBook(id);
         dummy.setTitle(m.title());
         dummy.setdirector(m.director());
         dummy.setCategory(m.category());
         dummy.setPubyear(m.pubyear());
         dummy.setrating(m.rating());
+
+
+
         return toResponse(repository.update(dummy));
 
     }
@@ -54,6 +58,13 @@ public class MovieService {
     public void delete(long id){
         findBook(id);
         repository.delete(id);
+    }
+
+
+    private void che(MovieRequest m){
+        if((m.title() == null || m.title().isBlank()) || m.rating()<0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"값이 제대로 입력되지 않았습니다 (제목 없음 혹은 점수가 음수)");
+        }
     }
 
 
