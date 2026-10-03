@@ -15,6 +15,8 @@ import java.util.Optional;
 
 
 
+@Service
+
 public class MovieService {
     private final MovieRepository repository;
     public MovieService(MovieRepository repository){
