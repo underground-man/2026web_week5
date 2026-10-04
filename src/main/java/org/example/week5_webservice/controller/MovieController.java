@@ -45,4 +45,10 @@ public class MovieController {
             movieService.delete(id);
             return ResponseEntity.noContent().build();
         }
+
+        @GetMapping
+        public List<MovieResponse> findCat(@RequestParam String category){
+            return movieService.findCat(category);
+
+        }
 }

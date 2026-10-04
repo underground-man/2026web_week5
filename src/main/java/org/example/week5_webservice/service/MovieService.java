@@ -35,6 +35,17 @@ public class MovieService {
         return mlist;
     }
 
+    public List<MovieResponse> findCat(String category){
+        List<MovieResponse> mlist = new ArrayList<>();
+
+        for (Movie b : repository.findAll()){
+            if(category.equalsIgnoreCase(b.getCategory())){
+                mlist.add(toResponse(b));
+            }
+        }
+        return mlist;
+    }
+
     public MovieResponse findbyId(long id){
         return toResponse(findBook(id));
     }
@@ -64,6 +75,10 @@ public class MovieService {
     private void che(MovieRequest m){
         if((m.title() == null || m.title().isBlank()) || m.rating()<0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"값이 제대로 입력되지 않았습니다 (제목 없음 혹은 점수가 음수)");
+        }
+
+        if(m.category()==null || m.category().isBlank()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"category가 제대로 입력되지 않았습니다");
         }
     }
 
