@@ -46,7 +46,7 @@ public class MovieController {
             return ResponseEntity.noContent().build();
         }
 
-        @GetMapping
+        @GetMapping("/category")
         public List<MovieResponse> findCat(@RequestParam String category){
             return movieService.findCat(category);
 
